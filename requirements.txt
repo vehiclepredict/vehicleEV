@@ -3,4 +3,3 @@ tensorflow
 streamlit-cropper
 streamlit_option_menu
 easyocr
-mysql
