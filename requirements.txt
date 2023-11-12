@@ -4,4 +4,4 @@ streamlit-cropper
 easyocr
 plotly
 googletrans
-gtt
+gtts
