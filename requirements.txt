@@ -3,3 +3,6 @@ tensorflow
 streamlit-cropper
 streamlit_option_menu
 easyocr
+plotly
+googletrans
+gtt
