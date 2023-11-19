@@ -16,12 +16,12 @@ uploaded_file = st.file_uploader("Choose a image file")
 map_dict = {  0:'Controller',
               1:'Inventor',
               2:'Battery',
-              3:'Transmission'
+              3:'Transmission',
               4:'onboardchager',
-              5:'ExteriorComponents'
-              6:'Elecricmotor'
+              5:'ExteriorComponents',
+              6:'Elecricmotor',
               7:'CoolingSystem',
-              8:'BrakingSystem'
+              8:'BrakingSystem',
               9:'VehicleInterior'
             }
 realtime_update = st.sidebar.checkbox(label="Update in Real Time", value=True)
