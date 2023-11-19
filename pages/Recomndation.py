@@ -26,12 +26,12 @@ df_participants.dropna(inplace=True)
 department = df['Department'].unique().tolist()
 ages = df['Age'].unique().tolist()
 
-age_selection = st.slider('Age:',
+age_selection = st.slider('Used Years:',
                         min_value= min(ages),
                         max_value= max(ages),
                         value=(min(ages),max(ages)))
 
-department_selection = st.multiselect('Department:',
+department_selection = st.multiselect('BreakeDown Type:',
                                     department,
                                     default=department)
 
