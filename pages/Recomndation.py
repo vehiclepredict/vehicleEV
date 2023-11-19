@@ -1,38 +1,71 @@
+import pandas as pd
 import streamlit as st
-import cv2
-import numpy as np
-import tensorflow as tf
-from tensorflow.keras.preprocessing import image
-from tensorflow.keras.applications.mobilenet_v2 import MobileNetV2,preprocess_input as mobilenet_v2_preprocess_input
+import plotly.express as px
+from PIL import Image
 
-model = tf.keras.models.load_model("saved_model/leaf.hdf5")
-st.title("Leaf Identifire")
-### load file
-uploaded_file = st.file_uploader("Choose a image file")
+st.set_page_config(page_title='Survey Results')
+st.header('Survey Results 2021')
+st.subheader('Was the tutorial helpful?')
 
-map_dict = {0:'Canker',
-            1:'Dot',
-            2:'Mummification',
-            3:'Rust',
-            4:'None'
-            }
+### --- LOAD DATAFRAME
+excel_file = 'Survey_Results.xlsx'
+sheet_name = 'DATA'
 
+df = pd.read_excel(excel_file,
+                   sheet_name=sheet_name,
+                   usecols='B:D',
+                   header=3)
 
-if uploaded_file is not None:
-    # Convert the file to an Rust image.
-    file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
-    opencv_image = cv2.imdecode(file_bytes, 1)
-    opencv_image = cv2.cvtColor(opencv_image, cv2.COLOR_BGR2RGB)
-    resized = cv2.resize(opencv_image,(224,224))
-    # Now do something with the image! For example, let's display it:
-    st.image(opencv_image, channels="RGB")
+df_participants = pd.read_excel(excel_file,
+                                sheet_name= sheet_name,
+                                usecols='F:G',
+                                header=3)
+df_participants.dropna(inplace=True)
 
-    resized = mobilenet_v2_preprocess_input(resized)
-    img_reshape = resized[np.newaxis,...]
+# --- STREAMLIT SELECTION
+department = df['Department'].unique().tolist()
+ages = df['Age'].unique().tolist()
 
-    Genrate_pred = st.button("Leaf Predict")    
-    if Genrate_pred:
-        prediction = model.predict(img_reshape).argmax()
-        st.title("Predicted Type for the image is {}".format(map_dict [prediction]))
- 
-           
+age_selection = st.slider('Age:',
+                        min_value= min(ages),
+                        max_value= max(ages),
+                        value=(min(ages),max(ages)))
+
+department_selection = st.multiselect('Department:',
+                                    department,
+                                    default=department)
+
+# --- FILTER DATAFRAME BASED ON SELECTION
+mask = (df['Age'].between(*age_selection)) & (df['Department'].isin(department_selection))
+number_of_result = df[mask].shape[0]
+st.markdown(f'*Available Results: {number_of_result}*')
+
+# --- GROUP DATAFRAME AFTER SELECTION
+df_grouped = df[mask].groupby(by=['Rating']).count()[['Age']]
+df_grouped = df_grouped.rename(columns={'Age': 'Votes'})
+df_grouped = df_grouped.reset_index()
+
+# --- PLOT BAR CHART
+bar_chart = px.bar(df_grouped,
+                   x='Rating',
+                   y='Votes',
+                   text='Votes',
+                   color_discrete_sequence = ['#F63366']*len(df_grouped),
+                   template= 'plotly_white')
+st.plotly_chart(bar_chart)
+
+# --- DISPLAY IMAGE & DATAFRAME
+col1, col2 = st.columns(2)
+image = Image.open('images/survey.jpg')
+col1.image(image,
+        caption='Designed by slidesgo / Freepik',
+        use_column_width=True)
+col2.dataframe(df[mask])
+
+# --- PLOT PIE CHART
+pie_chart = px.pie(df_participants,
+                title='Total No. of Participants',
+                values='Participants',
+                names='Departments')
+
+st.plotly_chart(pie_chart)
