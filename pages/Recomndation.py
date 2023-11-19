@@ -64,7 +64,7 @@ col2.dataframe(df[mask])
 
 # --- PLOT PIE CHART
 pie_chart = px.pie(df_participants,
-                title='Total No. of Participants',
+                title='Total No. of Vehicles',
                 values='Participants',
                 names='Departments')
 
