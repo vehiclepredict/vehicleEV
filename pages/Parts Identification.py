@@ -13,7 +13,7 @@ st.title("EV Vehicle Parts Predictor")
 ### load file
 uploaded_file = st.file_uploader("Choose a image file")
 
-map_dict = {  0:'Controller',
+map_dict = {  0:'Breaking System',
               1:'Battery',
               2:'Controller',
               3:'Transmission',
