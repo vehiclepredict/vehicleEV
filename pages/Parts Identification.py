@@ -15,7 +15,7 @@ uploaded_file = st.file_uploader("Choose a image file")
 
 map_dict = {  0:'Controller',
               1:'Battery',
-              2:'Invertor',
+              2:'Controller',
               3:'Transmission',
               4:'onboardchager',
               5:'ExteriorComponents',
