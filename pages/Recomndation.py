@@ -56,7 +56,7 @@ st.plotly_chart(bar_chart)
 
 # --- DISPLAY IMAGE & DATAFRAME
 col1, col2 = st.columns(2)
-image = Image.open('images/survey.jpg')
+image = Image.open('saved_modal/survey.jpg')
 col1.image(image,
         caption='Designed by slidesgo / Freepik',
         use_column_width=True)
