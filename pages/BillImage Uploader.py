@@ -62,26 +62,9 @@ if st.button("Convert"):
             with st.spinner('Extracting Text from given Image'):
                 eng_reader = easyocr.Reader(['en'])
                 detected_text = eng_reader.readtext(img)
-            st.subheader('You Asked to solve ...')
+            st.subheader('You Asked to added ...')
             text = display_text(detected_text)
-            st.subheader(text+'for the variable x')
-            res = [int(i) for i in text.split() if i.isdigit()]
-            num = re.findall(r'\d+', text) 
-            lst_int = list(map(int,num))
-            firstnum = lst_int[0]
-            secnum = lst_int[2]-lst_int[1]
-            # Define the coefficients
-            a = np.array([[firstnum]])
-
-            # Define the constants
-            b = np.array([secnum])
-
-            # Solve the equation
-            x = np.linalg.solve(a, b)
-
-            # Print the solution
-            st.subheader('Solution:')
-            st.write("Answer Is:",x)
+            st.write(text)
             
 
         elif src=='Swahili':
