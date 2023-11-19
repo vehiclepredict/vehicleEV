@@ -58,7 +58,7 @@ if uploaded_file is not None:
     st.image(cropped_img)
     # Convert the file to an opencv image.
 
-    Genrate_pred = st.button("Disease")    
+    Genrate_pred = st.button("Predict")    
     if Genrate_pred:
         prediction = model.predict(img_reshape).argmax()
         # if(map_dict [prediction] == 'turmericfingers'){
