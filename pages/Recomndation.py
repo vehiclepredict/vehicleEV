@@ -3,12 +3,12 @@ import streamlit as st
 import plotly.express as px
 from PIL import Image
 
-st.set_page_config(page_title='Survey Results')
-st.header('Survey Results 2021')
-st.subheader('Was the tutorial helpful?')
+st.set_page_config(page_title='EV Results')
+st.header('EV Vehicle Recommand')
+
 
 ### --- LOAD DATAFRAME
-excel_file = 'saved_model/Survey_Results.xlsx'
+excel_file = 'saved_model/Survey_Result.xlsx'
 sheet_name = 'DATA'
 
 df = pd.read_excel(excel_file,
