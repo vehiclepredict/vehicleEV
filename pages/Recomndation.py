@@ -8,7 +8,7 @@ st.header('Survey Results 2021')
 st.subheader('Was the tutorial helpful?')
 
 ### --- LOAD DATAFRAME
-excel_file = 'Survey_Results.xlsx'
+excel_file = 'saved_model/Survey_Results.xlsx'
 sheet_name = 'DATA'
 
 df = pd.read_excel(excel_file,
