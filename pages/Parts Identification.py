@@ -8,17 +8,21 @@ from streamlit_cropper import st_cropper
 from PIL import Image
 st.set_option('deprecation.showfileUploaderEncoding', False)
 
-model = tf.keras.models.load_model("saved_model/disease.hdf5")
+model = tf.keras.models.load_model("saved_model/parts.hdf5")
 st.title("Disease Predictor")
 ### load file
 uploaded_file = st.file_uploader("Choose a image file")
 
-map_dict = { 0:'Phytopthora',
-             1:'Guava_Good',
-             2:'Styler and Root',
-             3:'Scab',
-             4:'Guava_Bad',
-             5:'None'
+map_dict = {  0:'Controller',
+              1:'Inventor',
+              2:'Battery',
+              3:'Transmission'
+              4:'onboardchager',
+              5:'ExteriorComponents'
+              6:'Elecricmotor'
+              7:'CoolingSystem',
+              8:'BrakingSystem'
+              9:'VehicleInterior'
             }
 realtime_update = st.sidebar.checkbox(label="Update in Real Time", value=True)
 box_color = st.sidebar.color_picker(label="Box Color", value='#0000FF')
